@@ -322,9 +322,47 @@
   gap: 24px;
   text-align: right;
 }
-.hero__story p {
-  font-size: var(--step-lead);
-  max-width: 18ch;
+.hero__story {
+  text-decoration: none;
+  color: var(--ink);
+}
+/* The way into the journey page: as big as the title, so it reads as a door. */
+.hero__journey {
+  font-size: clamp(3rem, 5.6vw, 6.5rem); /* the title's size */
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.88;
+}
+.hero__last {
+  white-space: nowrap;
+}
+.hero__arrow {
+  display: inline-block;
+  margin-left: 0.12em;
+  color: var(--accent);
+  transition: transform 400ms var(--ease-out);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero__arrow {
+    animation: arrow-right 1.8s var(--ease-out) infinite;
+  }
+}
+@keyframes arrow-right {
+  0%, 60%, 100% { transform: translateX(0); }
+  80% { transform: translateX(0.2em); }
+}
+.hero__note {
+  font-size: var(--step-body);
+  max-width: 24ch;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hero__story:hover .hero__journey {
+    color: var(--accent);
+  }
+  .hero__story:hover .hero__arrow {
+    animation: none;
+    transform: translateX(0.3em);
+  }
 }
 
 /* ---------- Live status ---------- */
@@ -1002,6 +1040,7 @@ a.library__row .library__note::after {
   }
   .hero .stage__pin {
     padding-top: calc(var(--bar) + 40px);
+    gap: 72px;
   }
   .stage__window {
     align-self: stretch;
@@ -1035,9 +1074,6 @@ a.library__row .library__note::after {
   .hero__story {
     align-items: flex-start;
     text-align: left;
-  }
-  .hero__story p {
-    max-width: none;
   }
 
   .work__head {

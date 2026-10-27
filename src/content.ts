@@ -29,7 +29,7 @@ export const hero = {
   title: 'Student athlete',
   lead: 'Final-year Computing student at the University of Melbourne by day, competitive cheerleader at the highest level by night. I build things, and I throw people in the air. Every project here is live. Pick one.',
   action: { label: 'See the projects', href: '#work' },
-  story: { label: 'My story', href: '/journey', note: 'From Hanoi to Melbourne: hackathons, an internship at MBBank, and what I want next.' },
+  story: { label: 'My journey', href: '/journey', note: 'From Hanoi to Melbourne: hackathons, an internship at MBBank, and what I want next.' },
   // Team photos: Peter asked for them on 27 Oct.
   photos: [
     pic('peter', 'Peter holding a trophy and pom-poms, a medal in his teeth', 'Me and my first gold', 1600, 1500),

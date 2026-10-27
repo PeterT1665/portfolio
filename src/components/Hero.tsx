@@ -21,12 +21,18 @@ export function Hero() {
           </div>
         }
         right={
-          <div className="hero__story" data-enter="right">
-            <p>{hero.story.note}</p>
-            <a className="button" href={hero.story.href}>
-              {hero.story.label}
-            </a>
-          </div>
+          <a className="hero__story" href={hero.story.href} data-enter="right">
+            <span className="hero__journey">
+              {hero.story.label.split(' ').slice(0, -1).join(' ')}{' '}
+              <span className="hero__last">
+                {hero.story.label.split(' ').at(-1)}
+                <span className="hero__arrow" aria-hidden="true">
+                  →
+                </span>
+              </span>
+            </span>
+            <span className="hero__note">{hero.story.note}</span>
+          </a>
         }
       />
     </section>
