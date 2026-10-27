@@ -1,3 +1,6 @@
 {
-  "rewrites": [{ "source": "/projects", "destination": "/" }]
+  "rewrites": [
+    { "source": "/projects", "destination": "/" },
+    { "source": "/journey", "destination": "/" }
+  ]
 }

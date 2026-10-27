@@ -11,10 +11,13 @@ import { Cheer } from './components/Cheer'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 
-// Two pages: the home page, and /projects with every project. No router needed.
+// Three pages: home, /projects with every project, and /journey with Peter's story.
+// No router needed.
 export function App() {
-  const onLibrary = location.pathname.replace(/\/+$/, '') === '/projects'
-  return onLibrary ? <LibraryPage /> : <Home />
+  const path = location.pathname.replace(/\/+$/, '')
+  if (path === '/projects') return <LibraryPage />
+  if (path === '/journey') return <JourneyPage />
+  return <Home />
 }
 
 function Home() {
@@ -33,7 +36,6 @@ function Home() {
       <main id="main">
         <Hero />
         <Work />
-        <About />
         <Cheer />
         <Contact />
       </main>
@@ -57,6 +59,26 @@ function LibraryPage() {
       <Header />
       <main id="main" className="libpage">
         <Library page />
+      </main>
+      <Footer />
+    </>
+  )
+}
+
+function JourneyPage() {
+  useEffect(() => {
+    document.title = 'My story · Peter Trieu'
+  }, [])
+  useMotion(false)
+
+  return (
+    <>
+      <a className="skip" href="#main">
+        Skip to the story
+      </a>
+      <Header />
+      <main id="main" className="journey">
+        <About />
       </main>
       <Footer />
     </>

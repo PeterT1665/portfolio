@@ -20,19 +20,32 @@ export const person = {
   resume: '/Peter_Trieu_Resume.pdf',
 }
 
+// A picture in a scroll stage (the self intro and the cheer record).
+export type Pic = { src: string; alt: string; caption: string; width: number; height: number }
+
+const pic = (name: string, alt: string, caption: string, width = 1600, height = 2000): Pic => ({ src: `/img/${name}`, alt, caption, width, height })
+
 export const hero = {
-  // The h1 is split across the screen: first half on the left, second on the right.
-  titleStart: ['Peter', 'Trieu'],
-  titleEnd: ['ships it', 'live.'],
-  lead: 'Student athlete: final-year Computing student at the University of Melbourne by day, competitive cheerleader at the highest level by night. I build things, and I throw people in the air. Every project here is live. Pick one.',
+  title: 'Student athlete.',
+  lead: 'Final-year Computing student at the University of Melbourne by day, competitive cheerleader at the highest level by night. I build things, and I throw people in the air. Every project here is live. Pick one.',
   action: { label: 'See the projects', href: '#work' },
+  story: { label: 'My story', href: '/journey', note: 'From Hanoi to Melbourne: hackathons, an internship at MBBank, and what I want next.' },
+  // Team photos: Peter asked for them on 27 Oct.
+  photos: [
+    pic('peter', 'Peter holding a trophy and pom-poms, a medal in his teeth', 'Me, mid-celebration', 1600, 1500),
+    pic('team-bumpin', 'The four-person BumpIn team', 'BumpIn team, Affinda AI challenge', 1600, 1066),
+    pic('voyager-team-2', 'The Voyager team striking a pose', 'Voyager team, CISSA Codebrew', 1600, 1200),
+    pic('cheer-3', 'Legacy team on the Road to the Worlds stage', 'Legacy, Southern Cross Cheer', 1600, 2133),
+    pic('team-bumpin-2', 'BumpIn team with the Affinda judges', 'Affinda AI challenge, 3rd overall', 1600, 1066),
+    pic('voyager-team', 'The Voyager team arm in arm', 'Voyager team, Best Product', 1600, 900),
+    pic('jacket', 'Peter in Melbourne at night', 'Melbourne, home for now', 1600, 2400),
+  ],
 }
 
 export const nav = [
   { label: 'Projects', href: '/#work' },
-  { label: 'About', href: '/#about' },
-  { label: 'Internship', href: '/#mbbank' },
   { label: 'Cheer', href: '/#cheer' },
+  { label: 'Journey', href: '/journey' },
   { label: 'Contact', href: '/#contact' },
 ]
 
@@ -63,6 +76,24 @@ export const featured: Featured[] = [
     status: { kind: 'server', ping: 'https://bumpin-demo.onrender.com/api/health' },
   },
   {
+    name: 'Sport Personal Coach',
+    what: 'Plans my football week around game days and calls random reaction cues in drills',
+    result: 'Solo build, live demo with sample data',
+    url: 'https://sport-coach-demo.duckdns.org',
+    repo: 'https://github.com/PeterT1665/Workout-Rag-Advisor',
+    shot: shot('coach', 'Sport Personal Coach home screen: the week planned around one game, with today\'s recovery session'),
+    status: { kind: 'static' },
+  },
+  {
+    name: 'Fold-A2',
+    what: 'A poker bot you can sit down and play',
+    result: '10th of 41 teams, MAC hackathon',
+    url: 'https://fold-a2-pokerroom.onrender.com',
+    repo: 'https://github.com/PeterT1665/Fold-A2',
+    shot: shot('poker', 'Fold A2 Poker Room: a hand in progress against five copies of the bot, standings and hand log beside the table', 894),
+    status: { kind: 'server', ping: 'https://fold-a2-pokerroom.onrender.com/' },
+  },
+  {
     name: 'Voyager',
     what: "Rebuilds NASA's deep-space error correction, live",
     result: 'Best Product, CISSA Codebrew 2026',
@@ -72,31 +103,13 @@ export const featured: Featured[] = [
     status: { kind: 'static' },
   },
   {
-    name: 'Fold-A2',
-    what: 'A poker bot you can sit down and play',
-    result: '10th of 41 teams, MAC hackathon',
-    url: 'https://fold-a2-pokerroom.onrender.com',
-    repo: 'https://github.com/PeterT1665/Fold-A2',
-    shot: shot('poker', 'Fold A2 Poker Room setup: pick players, opponents, chips and blind speed, then deal in'),
-    status: { kind: 'server', ping: 'https://fold-a2-pokerroom.onrender.com/' },
-  },
-  {
     name: 'ndAI',
-    what: 'Stops company secrets being pasted into ChatGPT',
+    what: 'Chrome extension that stops company secrets being pasted into AI chatbots',
     result: 'Built in 24 hours, Forward: AI in Business',
     url: 'https://ndai-try.vercel.app/preview/',
     repo: 'https://github.com/massive-attack-team/ndAI',
-    shot: shot('ndai-block', 'ndAI blocking a prompt: "Paraphrases internal doc acquisition-memo", 77% internal match', 910),
+    shot: shot('ndai-ext', 'ndAI in the browser: a prompt about a strategic plan blocked before it reaches the chatbot, tier 3 paraphrase match', 921),
     status: { kind: 'server', ping: 'https://ndai-detector-onnx.onrender.com/health' },
-  },
-  {
-    name: 'Sport Personal Coach',
-    what: 'Plans my football week around game days and calls random reaction cues in drills',
-    result: 'Solo build, live demo with sample data',
-    url: 'https://sport-coach-demo.duckdns.org',
-    repo: 'https://github.com/PeterT1665/Workout-Rag-Advisor',
-    shot: shot('coach', 'Sport Personal Coach home screen: the week planned around one game, with today\'s recovery session'),
-    status: { kind: 'static' },
   },
 ]
 
@@ -107,10 +120,10 @@ export type LibraryRow = { name: string; what: string; stack: string; note: stri
 
 export const library: LibraryRow[] = [
   { name: 'BumpIn', what: 'Festival rider and vendor CRM', stack: 'Python, FastAPI, React', note: '3rd overall, Best Track', url: 'https://bumpin-demo.onrender.com' },
-  { name: 'Voyager', what: 'Reed-Solomon image recovery', stack: 'JavaScript, Vite', note: 'Best Product, Codebrew', url: 'https://voyager-sepia-zeta.vercel.app' },
-  { name: 'Fold-A2', what: 'Poker bot and poker room', stack: 'Python', note: '10th of 41 teams', url: 'https://fold-a2-pokerroom.onrender.com' },
-  { name: 'ndAI', what: 'Leak detector for AI prompts', stack: 'Python, ONNX, Chrome extension', note: '24-hour build', url: 'https://ndai-try.vercel.app/preview/' },
   { name: 'Sport Personal Coach', what: 'Football training plan built around game days', stack: 'React, TypeScript, FastAPI, PWA', note: 'Solo build, live demo', url: 'https://sport-coach-demo.duckdns.org' },
+  { name: 'Fold-A2', what: 'Poker bot and poker room', stack: 'Python', note: '10th of 41 teams', url: 'https://fold-a2-pokerroom.onrender.com' },
+  { name: 'Voyager', what: 'Reed-Solomon image recovery', stack: 'JavaScript, Vite', note: 'Best Product, Codebrew', url: 'https://voyager-sepia-zeta.vercel.app' },
+  { name: 'ndAI', what: 'Leak detector for AI prompts', stack: 'Python, ONNX, Chrome extension', note: '24-hour build', url: 'https://ndai-try.vercel.app/preview/' },
   { name: 'DsCube stock model', what: 'Which stocks to sell, ranked', stack: 'LightGBM, XGBoost, CatBoost', note: 'Kaggle competition', url: 'https://github.com/PeterT1665/DsCube---Kaggle---Stock-Prediction' },
   { name: 'GovAssist', what: 'Voice assistant for a government service, five agents', stack: 'Python, FastAPI, Android', note: 'Client project, screenshots only' },
   { name: 'Algothon 2026', what: 'Lead-lag trading strategy', stack: 'Python, own backtester', note: 'Team of four', url: 'https://github.com/four-of-a-kind-algothon-26/algothon-26' },
@@ -125,7 +138,7 @@ export const about = {
     {
       title: 'Uni is just the beginning',
       body: "I'm in my final year of Computing and Software Systems at the University of Melbourne. Building projects inside my subjects taught me the basics. What I want now is to dive into open-ended problems that still need a solution.",
-      photo: { label: 'Photo of Peter', note: 'photos/peter.jpg', src: '/img/peter', alt: 'Peter holding a trophy and pom-poms, a medal in his teeth' },
+      photo: { label: 'Photo of Peter', note: 'photos/peter.jpg', src: '/img/night', alt: 'Peter in Melbourne at night, the Arts Centre spire behind him' },
     },
     {
       title: 'So I went looking for uncertainty',
@@ -142,7 +155,7 @@ export const about = {
       title: 'What next?',
       lead: 'Learn as much as possible from every opportunity I get, and carry it forward.',
       body: "I'm looking for software engineering and AI engineering internships now, and graduate roles from 2027. Startups, fintech, banks: anywhere that ships.",
-      photo: { label: 'Melbourne photo', note: 'photos/melbourne.jpg', src: '/img/night', alt: 'Peter in Melbourne at night' },
+      photo: { label: 'Melbourne photo', note: 'photos/melbourne.jpg', src: '/img/smile', alt: 'Peter laughing outside a Melbourne shop at night' },
     },
   ],
   strengths: ['High performer', 'Communication', 'Teamwork', 'Leading a team', 'Taking initiative', 'Hard work'],
@@ -154,9 +167,9 @@ export const cheer = {
   // Peter's list, confirmed 27 Oct: 8 golds (3 national, 3 state, Winterfest, Aussie Gold International).
   body: "I'm a competitive cheerleader on the Legacy team at Southern Cross Cheer Club in Melbourne, competing at Level 7, the highest level. Same lesson as hackathons: you trust the people holding you up.",
   medals: [
-    { figure: '8', label: 'gold medals in Melbourne' },
-    { figure: '3', label: 'national titles, 2023 to 2025' },
-    { figure: 'Worlds', label: 'partial paid bid, won as 2025 Grand Champion' },
+    { icon: 'medal' as const, figure: '8', label: 'gold medals in Melbourne' },
+    { icon: 'flag' as const, figure: '3', label: 'national titles, 2023 to 2025' },
+    { icon: 'globe' as const, figure: 'Worlds', label: 'partial paid bid (a sponsored place) to compete at Worlds, won as 2025 Grand Champion' },
   ],
   record: [
     {
@@ -179,10 +192,9 @@ export const cheer = {
     },
   ],
   photos: [
-    // Add src: '/img/cheer-1' (and an alt) once photos/cheer-1.jpg exists and `npm run images` has run.
-    { label: 'Cheer photo: stunt', note: 'photos/cheer-1.jpg', src: '/img/cheer-1', alt: 'A flyer on top of a two-man base, Legacy team' },
-    { label: 'Cheer photo: team', note: 'photos/cheer-2.jpg', src: '/img/cheer-2', alt: 'Legacy team with the 2025 Grand Champion banner' },
-    { label: 'Cheer photo: medals', note: 'photos/cheer-3.jpg', src: '/img/cheer-3', alt: 'Legacy team on the Road to the Worlds stage' },
+    pic('cheer-1', 'A flyer on top of a two-man base, Legacy team', 'Stunt day, Southern Cross Cheer', 1170, 1560),
+    pic('cheer-4', 'Peter basing a flyer outdoors in Melbourne', 'Basing in the city', 1600, 2133),
+    pic('cheer-2', 'Legacy team with the 2025 Grand Champion banner', '2025 Grand Champion, Worlds bid', 1600, 1200),
   ],
 }
 

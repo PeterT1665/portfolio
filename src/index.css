@@ -240,107 +240,84 @@
   transform: scale(0.95);
 }
 
-/* ---------- Hero ---------- */
+/* ---------- Scroll stage (self intro, cheer record) ---------- */
 
-.hero {
+.stage {
+  --frame-w: min(30vw, 50svh);
   position: relative;
   height: 280svh;
 }
-.hero__stage {
+.stage__pin {
   position: sticky;
   top: 0;
   height: 100svh;
   overflow: clip;
+  display: grid;
+  grid-template-columns: 1fr var(--frame-w) 1fr;
+  grid-template-rows: minmax(0, 1fr); /* the reel is taller than the screen; the window clips it */
+  gap: 56px;
+  padding: var(--bar) var(--margin) 0;
 }
-.hero__title {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-inline: var(--margin);
-  font-size: var(--step-hero);
-  font-weight: 800;
-  letter-spacing: -0.05em;
-  line-height: 0.88;
-  pointer-events: none; /* clicks pass through to the reel; the words themselves stay hit-testable */
+.stage__side {
+  align-self: center;
 }
-.hero__start,
-.hero__end {
-  display: block;
-  max-width: 31vw;
-  pointer-events: auto;
+.stage--cheer {
+  height: 200svh;
 }
-.hero__end {
-  text-align: right;
+.stage__side--right {
+  justify-self: end;
 }
-.hero__line {
-  display: block;
-  white-space: nowrap;
-}
-.hero__window {
-  --frame-w: 34vw;
-  --frame-h: calc(var(--frame-w) * 0.625 + 44px); /* 16:10 picture plus its caption */
-  --sliver: 64px;
-  position: absolute;
-  left: calc(50% - var(--frame-w) / 2);
-  top: calc(50% - var(--frame-h) / 2 - var(--sliver) - 24px);
-  width: var(--frame-w);
-  height: calc(var(--frame-h) + 2 * (var(--sliver) + 24px));
+.stage__window {
   overflow: clip;
 }
-.hero__reel {
+.stage__reel {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding-top: calc(var(--sliver) + 24px);
+  gap: 32px;
+  /* the first picture starts in the middle of the screen */
+  padding-top: calc((100svh - var(--bar) - var(--frame-w) * 1.25 - 40px) / 2);
   will-change: transform;
 }
-.hero__frame {
-  display: block;
-  text-decoration: none;
-}
-.hero__frame img {
+.stage__frame img {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: top;
   background: var(--surface);
-  transition: transform 500ms var(--ease-out);
 }
-.hero__caption {
+.stage__frame figcaption {
+  height: 40px;
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  height: 44px;
   align-items: flex-end;
   font-size: var(--step-small);
   font-weight: 600;
 }
-.hero__caption .live {
-  font-weight: 400;
-}
-.hero__frame {
-  overflow: clip;
-}
-@media (hover: hover) and (pointer: fine) {
-  .hero__frame:hover img {
-    transform: scale(1.03);
-  }
-}
-.hero__foot {
-  position: absolute;
-  left: var(--margin);
-  bottom: 32px;
+
+.hero__intro {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
-  max-width: min(30vw, 34ch);
+  gap: 24px;
+}
+.hero__title {
+  font-size: clamp(3rem, 5.6vw, 6.5rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.88;
 }
 .hero__lead {
   font-size: var(--step-body);
+  max-width: 36ch;
+}
+.hero__story {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 24px;
+  text-align: right;
+}
+.hero__story p {
+  font-size: var(--step-lead);
+  max-width: 18ch;
 }
 
 /* ---------- Live status ---------- */
@@ -683,6 +660,20 @@ a.library__row .library__note::after {
 .about {
   padding: var(--gap-section) var(--margin) 0;
 }
+.journey .about {
+  padding-top: calc(var(--bar) + 96px);
+}
+.about__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+}
+.about__close > .button {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
 .about__title {
   font-size: var(--step-display);
   font-weight: 800;
@@ -789,10 +780,11 @@ a.library__row .library__note::after {
 
 .cheer {
   margin-top: var(--gap-section);
-  padding: 120px var(--margin);
+  padding: 120px 0;
   background: var(--surface);
 }
 .cheer__intro {
+  padding-inline: var(--margin);
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 32px;
@@ -827,12 +819,6 @@ a.library__row .library__note::after {
   font-size: var(--step-lead);
   margin-top: 8px;
 }
-.record {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px 64px;
-  margin-bottom: 96px;
-}
 .record__group h3 {
   font-size: var(--step-head);
   font-weight: 800;
@@ -854,10 +840,29 @@ a.library__row .library__note::after {
   grid-column: 2;
   font-weight: 600;
 }
-.cheer__photos {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+.cheer__medals dt {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+}
+.cheer__icon {
+  display: inline-flex;
+  width: 0.62em;
+}
+.cheer__icon--flag {
+  width: 0.9em;
+}
+.cheer__icon svg {
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 1100px) {
+  .record__row {
+    grid-template-columns: 1fr;
+  }
+  .record__result {
+    grid-column: 1;
+  }
 }
 .cheer .photo--empty {
   background: var(--empty);
@@ -917,7 +922,6 @@ a.library__row .library__note::after {
 .footer__photo {
   aspect-ratio: auto;
   height: 100%;
-  object-position: 30% 75%;
 }
 .footer__side {
   display: flex;
@@ -974,43 +978,51 @@ a.library__row .library__note::after {
     gap: 16px;
   }
 
-  .hero {
+  .stage {
     height: auto;
   }
-  .hero__stage {
+  .stage__pin {
     position: static;
     height: auto;
     overflow: visible;
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    padding: calc(var(--bar) + 32px) var(--margin) 48px;
+    gap: 40px;
+    padding: 0 var(--margin);
   }
-  .hero__title {
-    position: static;
-    display: block;
+  .hero .stage__pin {
+    padding-top: calc(var(--bar) + 40px);
+  }
+  .stage__window {
+    overflow-x: auto;
+    margin-inline: calc(var(--margin) * -1);
+    padding-inline: var(--margin);
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--margin);
+  }
+  .stage__reel {
+    flex-direction: row;
+    gap: 16px;
     padding: 0;
   }
-  .hero__start,
-  .hero__end {
-    max-width: none;
+  .stage__frame {
+    flex: 0 0 72vw;
+    scroll-snap-align: start;
   }
-  .hero__end {
+  .stage__side {
+    align-self: stretch;
+  }
+  .stage--cheer .stage__pin {
+    gap: 96px;
+  }
+  .stage--cheer .stage__window {
+    order: 3;
+  }
+  .hero__story {
+    align-items: flex-start;
     text-align: left;
   }
-  .hero__window {
-    position: static;
-    width: auto;
-    height: auto;
-  }
-  .hero__reel {
-    padding: 0;
-  }
-  .hero__frame:not(:first-child) {
-    display: none; /* the full set follows in Live work */
-  }
-  .hero__foot {
-    position: static;
+  .hero__story p {
     max-width: none;
   }
 
@@ -1070,11 +1082,8 @@ a.library__row .library__note::after {
     gap: 8px 20px;
     font-weight: 600;
   }
-  .hero__line {
-    display: inline;
-  }
   .hero__title {
-    font-size: 12vw;
+    font-size: 16vw;
   }
   .contact__invite {
     max-width: none;
@@ -1155,24 +1164,6 @@ a.library__row .library__note::after {
     grid-template-columns: 1fr;
     gap: 24px;
     margin-top: 24px;
-  }
-  .cheer__photos {
-    grid-template-columns: none;
-    grid-auto-flow: column;
-    grid-auto-columns: 72%;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--margin);
-    margin-inline: calc(var(--margin) * -1);
-    padding-inline: var(--margin);
-  }
-  .cheer__photos > * {
-    scroll-snap-align: start;
-  }
-  .record {
-    grid-template-columns: 1fr;
-    gap: 96px;
-    margin-bottom: 72px;
   }
 
   .contact {

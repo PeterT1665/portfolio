@@ -1,12 +1,18 @@
 import { about } from '../content'
 import { Photo } from './Photo'
 
+// The journey: its own page at /journey, reached from the intro's "My story".
 export function About() {
   return (
     <section className="about" id="about" aria-labelledby="about-title">
-      <h2 className="about__title" id="about-title" data-rise>
-        {about.heading}
-      </h2>
+      <div className="about__head" data-rise-group>
+        <h1 className="about__title" id="about-title" data-rise>
+          {about.heading}
+        </h1>
+        <a className="button" href="/#work" data-rise>
+          Back to the live projects
+        </a>
+      </div>
       <ol className="about__chapters">
         {about.chapters.map((c) => (
           <li key={c.title} id={c.id} className="chapter" data-rise-group>
@@ -31,6 +37,9 @@ export function About() {
           ))}
         </ul>
         <p data-rise>{about.languages}</p>
+        <a className="button" href="/#work" data-rise>
+          Back to the live projects
+        </a>
       </div>
     </section>
   )

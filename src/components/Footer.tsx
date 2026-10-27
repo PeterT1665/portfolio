@@ -4,7 +4,7 @@ import { Photo } from './Photo'
 export function Footer() {
   return (
     <footer className="footer">
-      <Photo className="footer__photo" label="Cheer photo" note="photos/cheer-2.jpg" src="/img/cheer-2" alt="Legacy team with the 2025 Grand Champion banner" />
+      <Photo className="footer__photo" label="Photo of Peter" note="photos/white.jpg" src="/img/white" alt="Peter on a Melbourne street at night" />
       <div className="footer__side">
         <p className="footer__mark">{person.name}</p>
         <nav aria-label="Footer">
