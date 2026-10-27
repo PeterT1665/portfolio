@@ -28,10 +28,11 @@ export const hero = {
 }
 
 export const nav = [
-  { label: 'Work', href: '#work' },
-  { label: 'About', href: '#about' },
-  { label: 'Cheer', href: '#cheer' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Projects', href: '/#work' },
+  { label: 'About', href: '/#about' },
+  { label: 'Internship', href: '/#mbbank' },
+  { label: 'Cheer', href: '/#cheer' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 // How the live-status line checks a demo. `ping` is fetched in the background on
@@ -113,8 +114,8 @@ export const about = {
   heading: "Hi, I'm Peter",
   chapters: [
     {
-      title: 'Uni was not enough',
-      body: "I'm in my third year of Computing and Software Systems at the University of Melbourne. Building projects inside my subjects was a good start, but it wasn't enough. I wanted problems where nobody knew the answer yet.",
+      title: 'Uni is just the beginning',
+      body: "I'm in my third year of Computing and Software Systems at the University of Melbourne. Building projects inside my subjects taught me the basics. What I want now is to dive into open-ended problems that still need a solution.",
       photo: { label: 'Photo of Peter', note: 'photos/peter.jpg', src: '/img/unimelb', alt: 'Old Arts Building, University of Melbourne, Parkville' },
     },
     {
@@ -123,17 +124,19 @@ export const about = {
       photo: { label: 'Hackathon team photo', note: 'photos/team.jpg', src: '/img/bumpin-dash', alt: 'BumpIn dashboard, built in 22 hours at the Affinda AI challenge' },
     },
     {
-      title: 'Then a real codebase',
-      body: 'At MBBank in Vietnam I interned as a software engineer and built an API validation feature in Java and Spring Boot. That was my first taste of real industry work.',
+      id: 'mbbank',
+      title: 'The gap I saw at MBBank',
+      body: 'For three months I interned as a software engineer at MBBank in Vietnam, building an API validation feature in Java and Spring Boot. The bigger lesson was outside the code. In a developing country like Vietnam, we struggle to follow the solutions that developed countries already have. In one meeting, people asked an international strategist for a very foundational process, and that was when the problem became real to me. I wanted experience from overseas, here in Melbourne and Australia more broadly.',
       photo: { label: 'MBBank photo', note: 'photos/mbbank.jpg', src: '/img/hanoi', alt: 'A street in central Hanoi' },
     },
     {
-      title: 'Next: Melbourne',
+      title: 'What next?',
+      lead: 'Learn as much as possible from every opportunity I get, and carry it forward.',
       body: "I'm looking for software engineering and AI engineering internships now, and graduate roles from 2027. Startups, fintech, banks: anywhere that ships.",
       photo: { label: 'Melbourne photo', note: 'photos/melbourne.jpg', src: '/img/melbourne', alt: 'Melbourne city and the Yarra from the air' },
     },
   ],
-  strengths: ['Communication', 'Teamwork', 'Leading a team', 'Taking initiative', 'Hard work'],
+  strengths: ['High performer', 'Communication', 'Teamwork', 'Leading a team', 'Taking initiative', 'Hard work'],
   languages: 'I speak Vietnamese and English.',
 }
 

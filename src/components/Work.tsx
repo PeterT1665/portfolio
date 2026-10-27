@@ -1,35 +1,82 @@
-import { useEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { featured, workIntro } from '../content'
 import { LiveLine } from './LiveLine'
 
-// Names passing a held square: the project names scroll past in very large type
-// while one square frame holds the centre of the screen and shows whichever
-// project is crossing it. Either side of the frame: what it is and how it placed
-// on the left; whether its server is awake and where to open it on the right.
-// On a phone the hold is dropped and each name carries its own picture and lines.
+gsap.registerPlugin(ScrollTrigger)
+
+// Names passing a held frame: the project names scroll past in very large type
+// while one frame holds the top of the screen and shows the project whose name is
+// in view. Each name fades in as it rises toward the frame and is gone before it
+// touches it, and comes back the same way when scrolling up. On a phone the hold
+// is dropped and each name carries its own picture and lines.
 export function Work() {
   const [current, setCurrent] = useState(0)
+  const root = useRef<HTMLElement>(null)
   const list = useRef<HTMLOListElement>(null)
 
-  useEffect(() => {
-    const rows = list.current!.querySelectorAll<HTMLElement>('[data-index]')
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) if (e.isIntersecting) setCurrent(Number((e.target as HTMLElement).dataset.index))
-      },
-      { rootMargin: '-79% 0px -20% 0px' }, // a thin line just under the frame, so the current name sits clear of it
-    )
-    rows.forEach((r) => io.observe(r))
-    return () => io.disconnect()
+  // Which project the frame shows: the name closest to a line low on the screen.
+  useLayoutEffect(() => {
+    const items = Array.from(list.current!.querySelectorAll<HTMLElement>('[data-index] .work__name'))
+    const pick = () => {
+      const target = innerHeight * 0.88
+      let best = 0
+      let dist = Infinity
+      items.forEach((el, i) => {
+        const r = el.getBoundingClientRect()
+        const d = Math.abs(r.top + r.height / 2 - target)
+        if (d < dist) {
+          dist = d
+          best = i
+        }
+      })
+      setCurrent(best)
+    }
+    pick()
+    addEventListener('scroll', pick, { passive: true })
+    addEventListener('resize', pick)
+    return () => {
+      removeEventListener('scroll', pick)
+      removeEventListener('resize', pick)
+    }
+  }, [])
+
+  // Each name's opacity is tied to its scroll position: in over the first part of
+  // its rise, held, then out before it reaches the bottom edge of the frame.
+  useLayoutEffect(() => {
+    const mm = gsap.matchMedia()
+    mm.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
+      const frame = root.current!.querySelector<HTMLElement>('.work__frame')!
+      const frameBottom = () => 64 + 0.04 * innerHeight + frame.offsetHeight + 56 // bar + gap + frame + the phone's overhang
+      list.current!.querySelectorAll<HTMLElement>('.work__name').forEach((el) => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 98%',
+            end: () => `top ${frameBottom()}px`,
+            scrub: 0.25,
+            invalidateOnRefresh: true,
+            onUpdate: () => {
+              el.style.pointerEvents = Number(gsap.getProperty(el, 'opacity')) > 0.3 ? 'auto' : 'none'
+            },
+          },
+        })
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'none' })
+          .to(el, { opacity: 1, duration: 0.25 })
+          .to(el, { opacity: 0, duration: 0.45, ease: 'none' })
+      })
+    })
+    return () => mm.revert()
   }, [])
 
   const p = featured[current]
 
   return (
-    <section className="work" id="work" aria-labelledby="work-title">
+    <section className="work" id="work" ref={root} aria-labelledby="work-title">
       <div className="work__head" data-rise-group>
         <h2 className="work__title" id="work-title" data-rise>
-          Live work
+          Live projects
         </h2>
         <p className="work__intro" data-rise>
           {workIntro}
@@ -99,6 +146,11 @@ export function Work() {
           ))}
         </ol>
       </div>
+      <p className="work__all">
+        <a className="button" href="/projects">
+          See everything I've built
+        </a>
+      </p>
     </section>
   )
 }

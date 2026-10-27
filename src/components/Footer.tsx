@@ -9,7 +9,7 @@ export function Footer() {
         <p className="footer__mark">{person.name}</p>
         <nav aria-label="Footer">
           <ul className="footer__menu">
-            {[{ label: 'Top', href: '#top' }, ...nav, { label: 'All projects', href: '#library' }].map((n) => (
+            {[{ label: 'Top', href: '/' }, ...nav, { label: 'All projects', href: '/projects' }].map((n) => (
               <li key={n.href}>
                 <a href={n.href}>{n.label}</a>
               </li>

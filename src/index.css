@@ -194,8 +194,9 @@
 }
 .bar__mark {
   font-weight: 800;
-  font-size: var(--step-body);
-  letter-spacing: -0.03em;
+  font-size: var(--step-lead);
+  letter-spacing: -0.04em;
+  line-height: 1;
   text-decoration: none;
   margin-right: auto;
 }
@@ -205,10 +206,38 @@
   align-items: center;
   gap: 24px;
 }
-.theme {
-  font-weight: 600;
-  min-width: 3.2em;
-  text-align: left;
+/* The dark-mode switch: a filled track with a round knob that carries the
+   current mode's icon. */
+.switch {
+  position: relative;
+  flex: none;
+  width: 58px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color var(--t-ui) ease, transform var(--t-press) var(--ease-out);
+}
+.switch__knob {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--bg);
+  transition: transform 300ms var(--ease-out), background-color var(--t-ui) ease;
+}
+.switch[aria-checked='true'] .switch__knob {
+  transform: translateX(26px);
+}
+.switch:active {
+  transform: scale(0.95);
 }
 
 /* ---------- Hero ---------- */
@@ -478,13 +507,20 @@
   letter-spacing: -0.05em;
   line-height: 0.85;
   text-decoration: none;
-  color: var(--muted);
-  opacity: 0.55;
-  transition: color var(--t-ui) ease, opacity var(--t-ui) ease, transform 400ms var(--ease-out);
-}
-.work__names li.is-current .work__name {
   color: var(--ink);
-  opacity: 1;
+  transition: transform 400ms var(--ease-out);
+}
+/* With reduced motion there is no scrubbed fade: one name shows at a time. */
+@media (prefers-reduced-motion: reduce) and (min-width: 769px) {
+  .work__name {
+    transition: opacity var(--t-ui) ease;
+  }
+  .work__names li:not(.is-current) .work__name {
+    opacity: 0;
+  }
+}
+.work__all {
+  padding: 0 var(--margin);
 }
 @media (hover: hover) and (pointer: fine) {
   .work__name:hover {
@@ -523,7 +559,7 @@
   font-weight: 600;
 }
 .library__stack {
-  color: var(--muted);
+  color: var(--ink);
 }
 .library__note {
   text-align: right;
@@ -538,6 +574,73 @@ a.library__row .library__note::after {
   }
   a.library__row:hover {
     transform: translateX(12px);
+  }
+}
+
+/* ---------- Everything I've built (own page) ---------- */
+
+.libpage {
+  min-height: 100svh;
+}
+.libpage .library {
+  padding-top: calc(var(--bar) + 72px);
+  padding-bottom: var(--gap-section);
+}
+.libpage .library__title {
+  font-size: var(--step-display);
+  margin-bottom: 48px;
+  max-width: 14ch;
+}
+.library__intro {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px 48px;
+  align-items: end;
+  max-width: 1100px;
+  margin-bottom: 120px;
+  font-size: var(--step-lead);
+}
+.library__intro p {
+  max-width: 40ch;
+}
+.library__sub {
+  font-size: var(--step-head);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin-bottom: 40px;
+}
+.library__live {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 160px;
+}
+.library__live a {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-decoration: none;
+}
+.library__live img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+  background: var(--surface);
+  transition: transform 500ms var(--ease-out);
+}
+.library__live a {
+  overflow: clip;
+}
+.library__live-name {
+  font-size: var(--step-lead);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+@media (hover: hover) and (pointer: fine) {
+  .library__live a:hover img {
+    transform: scale(1.04);
   }
 }
 
@@ -589,6 +692,12 @@ a.library__row .library__note::after {
 }
 .chapter p {
   max-width: 48ch;
+}
+.chapter .chapter__lead {
+  font-size: var(--step-lead);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
 }
 .about__close {
   margin-top: 160px;
@@ -784,13 +893,10 @@ a.library__row .library__note::after {
   display: flex;
   gap: 48px;
   margin-top: 64px;
-  font-size: var(--step-small);
 }
 .footer__legal {
   margin-top: auto;
   padding-top: 48px;
-  font-size: var(--step-small);
-  color: var(--muted);
 }
 
 /* ---------- Phone and small tablet ---------- */
@@ -867,8 +973,6 @@ a.library__row .library__note::after {
   }
   .work__name {
     font-size: 17vw;
-    color: var(--ink);
-    opacity: 1;
   }
   .work__row {
     display: flex;
@@ -913,6 +1017,15 @@ a.library__row .library__note::after {
     max-width: none;
   }
 
+  .library__intro {
+    grid-template-columns: 1fr;
+    margin-bottom: 72px;
+  }
+  .library__live {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 12px;
+    margin-bottom: 96px;
+  }
   .library__row {
     grid-template-columns: 1fr auto;
     gap: 2px 16px;

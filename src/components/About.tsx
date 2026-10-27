@@ -9,10 +9,15 @@ export function About() {
       </h2>
       <ol className="about__chapters">
         {about.chapters.map((c) => (
-          <li key={c.title} className="chapter" data-rise-group>
+          <li key={c.title} id={c.id} className="chapter" data-rise-group>
             <Photo className="chapter__photo" label={c.photo.label} note={c.photo.note} src={c.photo.src} alt={c.photo.alt} />
             <div className="chapter__text">
               <h3 data-rise>{c.title}</h3>
+              {c.lead && (
+                <p className="chapter__lead" data-rise>
+                  {c.lead}
+                </p>
+              )}
               <p data-rise>{c.body}</p>
             </div>
           </li>
