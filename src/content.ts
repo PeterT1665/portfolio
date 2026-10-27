@@ -194,7 +194,7 @@ export const cheer = {
   ],
   photos: [
     pic('cheer-1', 'A flyer on top of a two-man base, Legacy team', 'Family showcase', 1170, 1560),
-    pic('cheer-4', 'Peter basing a flyer outdoors in Melbourne', 'Stunt with the gold', 1600, 2133),
+    pic('cheer-5', 'Peter holding his award certificate between his two coaches', 'Rising star award with my coaches', 1600, 1066, true),
     pic('cheer-2', 'Legacy team with the 2025 Grand Champion banner', '2025 Grand Champion, Worlds bid', 1600, 1200),
   ],
 }

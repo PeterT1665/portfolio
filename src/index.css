@@ -325,6 +325,8 @@
 .hero__story {
   text-decoration: none;
   color: var(--ink);
+  align-items: flex-start; /* the words read from the left, the block sits on the right */
+  text-align: left;
 }
 /* The way into the journey page: as big as the title, so it reads as a door. */
 .hero__journey {
