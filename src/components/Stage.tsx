@@ -1,39 +1,40 @@
-import { useLayoutEffect, useRef, type ReactNode } from 'react'
+import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import type { Pic } from '../content'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Two sides held on screen while a reel of pictures runs up through the middle as
-// the page scrolls. Used by the self intro and the cheer record. On a phone the
-// hold is dropped and the pictures become a strip to swipe.
+// Two sides held on screen with one picture between them; as the page scrolls, each
+// picture fades into the next, like the Live projects frame. Used by the self intro
+// and the cheer record. On a phone the hold is dropped and the pictures become a
+// strip to swipe.
 export function Stage({ left, right, pics, className = '', eager = false }: { left: ReactNode; right: ReactNode; pics: Pic[]; className?: string; eager?: boolean }) {
   const root = useRef<HTMLDivElement>(null)
-  const reel = useRef<HTMLDivElement>(null)
+  const [current, setCurrent] = useState(0)
 
+  // The picture shown follows how far through the stage the page has scrolled.
   useLayoutEffect(() => {
     const mm = gsap.matchMedia()
-    mm.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
-      const frames = reel.current!.children
-      const step = () => (frames[1] as HTMLElement).offsetTop - (frames[0] as HTMLElement).offsetTop
-      gsap.to(reel.current, {
-        y: () => -step() * (frames.length - 1),
-        ease: 'none',
-        scrollTrigger: { trigger: root.current, start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true },
+    mm.add('(min-width: 769px)', () => {
+      ScrollTrigger.create({
+        trigger: root.current,
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: (self) => setCurrent(Math.min(pics.length - 1, Math.floor(self.progress * pics.length))),
       })
     })
     return () => mm.revert()
-  }, [])
+  }, [pics.length])
 
   return (
-    <div className={`stage ${className}`} ref={root}>
+    <div className={`stage ${className}`} ref={root} style={{ '--n': pics.length } as CSSProperties}>
       <div className="stage__pin">
         <div className="stage__side stage__side--left">{left}</div>
         <div className="stage__window" data-enter={eager ? 'open' : undefined}>
-          <div className="stage__reel" ref={reel}>
+          <div className="stage__reel">
             {pics.map((p, i) => (
-              <figure key={p.src} className="stage__frame">
+              <figure key={p.src} className={`stage__frame${i === current ? ' is-current' : ''}${p.whole ? ' stage__frame--whole' : ''}`}>
                 <img
                   src={`${p.src}-800.webp`}
                   srcSet={`${p.src}-800.webp 800w, ${p.src}-1600.webp 1600w`}

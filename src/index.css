@@ -245,7 +245,7 @@
 .stage {
   --frame-w: min(30vw, 50svh);
   position: relative;
-  height: 280svh;
+  height: calc(100svh + var(--n) * 50svh); /* half a screen of scrolling per picture */
 }
 .stage__pin {
   position: sticky;
@@ -261,22 +261,29 @@
 .stage__side {
   align-self: center;
 }
-.stage--cheer {
-  height: 200svh;
-}
 .stage__side--right {
   justify-self: end;
 }
 .stage__window {
-  overflow: clip;
+  align-self: center;
 }
 .stage__reel {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  /* the first picture starts in the middle of the screen */
-  padding-top: calc((100svh - var(--bar) - var(--frame-w) * 1.25 - 40px) / 2);
-  will-change: transform;
+  position: relative;
+  height: calc(var(--frame-w) * 1.25 + 40px);
+}
+.stage__frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 400ms ease, visibility 400ms;
+}
+.stage__frame.is-current {
+  opacity: 1;
+  visibility: visible;
+}
+.stage__frame--whole img {
+  object-fit: contain;
 }
 .stage__frame img {
   width: 100%;
@@ -471,6 +478,9 @@
 }
 .work__names li:last-child {
   min-height: 0;
+}
+.work__names li.work__more {
+  min-height: 38svh;
 }
 .work__names li {
   min-height: 38svh;
@@ -994,6 +1004,7 @@ a.library__row .library__note::after {
     padding-top: calc(var(--bar) + 40px);
   }
   .stage__window {
+    align-self: stretch;
     overflow-x: auto;
     margin-inline: calc(var(--margin) * -1);
     padding-inline: var(--margin);
@@ -1001,11 +1012,14 @@ a.library__row .library__note::after {
     scroll-padding-inline: var(--margin);
   }
   .stage__reel {
-    flex-direction: row;
+    display: flex;
     gap: 16px;
-    padding: 0;
+    height: auto;
   }
   .stage__frame {
+    position: static;
+    opacity: 1;
+    visibility: visible;
     flex: 0 0 72vw;
     scroll-snap-align: start;
   }
@@ -1039,6 +1053,9 @@ a.library__row .library__note::after {
     display: flex;
     flex-direction: column;
     gap: 120px;
+  }
+  .work__names li.work__more {
+    display: none;
   }
   .work__names li {
     min-height: 0;

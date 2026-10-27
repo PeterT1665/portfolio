@@ -21,23 +21,21 @@ export const person = {
 }
 
 // A picture in a scroll stage (the self intro and the cheer record).
-export type Pic = { src: string; alt: string; caption: string; width: number; height: number }
+export type Pic = { src: string; alt: string; caption: string; width: number; height: number; whole?: boolean } // whole: show the full picture, uncropped
 
-const pic = (name: string, alt: string, caption: string, width = 1600, height = 2000): Pic => ({ src: `/img/${name}`, alt, caption, width, height })
+const pic = (name: string, alt: string, caption: string, width = 1600, height = 2000, whole = false): Pic => ({ src: `/img/${name}`, alt, caption, width, height, whole })
 
 export const hero = {
-  title: 'Student athlete.',
+  title: 'Student athlete',
   lead: 'Final-year Computing student at the University of Melbourne by day, competitive cheerleader at the highest level by night. I build things, and I throw people in the air. Every project here is live. Pick one.',
   action: { label: 'See the projects', href: '#work' },
   story: { label: 'My story', href: '/journey', note: 'From Hanoi to Melbourne: hackathons, an internship at MBBank, and what I want next.' },
   // Team photos: Peter asked for them on 27 Oct.
   photos: [
-    pic('peter', 'Peter holding a trophy and pom-poms, a medal in his teeth', 'Me, mid-celebration', 1600, 1500),
-    pic('team-bumpin', 'The four-person BumpIn team', 'BumpIn team, Affinda AI challenge', 1600, 1066),
+    pic('peter', 'Peter holding a trophy and pom-poms, a medal in his teeth', 'Me and my first gold', 1600, 1500),
     pic('voyager-team-2', 'The Voyager team striking a pose', 'Voyager team, CISSA Codebrew', 1600, 1200),
-    pic('cheer-3', 'Legacy team on the Road to the Worlds stage', 'Legacy, Southern Cross Cheer', 1600, 2133),
-    pic('team-bumpin-2', 'BumpIn team with the Affinda judges', 'Affinda AI challenge, 3rd overall', 1600, 1066),
-    pic('voyager-team', 'The Voyager team arm in arm', 'Voyager team, Best Product', 1600, 900),
+    pic('cheer-3', 'Legacy team on the Road to the Worlds stage', 'First international gold', 1600, 2133),
+    pic('team-bumpin-2', 'BumpIn team with the Affinda judges', 'Affinda AI challenge, 3rd overall', 1600, 1066, true),
     pic('jacket', 'Peter in Melbourne at night', 'Melbourne, home for now', 1600, 2400),
   ],
 }
@@ -61,6 +59,7 @@ export type Featured = {
   repo?: string
   shot: Shot
   phone?: Shot // a phone-size screenshot, shown beside the desktop one
+  more?: Shot[] // further screens, shown in turn as the visitor keeps scrolling
   status: Status
 }
 
@@ -80,6 +79,7 @@ export const featured: Featured[] = [
     what: 'Plans my football week around game days and calls random reaction cues in drills',
     result: 'Solo build, live demo with sample data',
     url: 'https://sport-coach-demo.duckdns.org',
+    phone: { src: '/img/coach-phone', alt: "Sport Personal Coach on a phone: today's recovery session over a night view of a stadium", width: 1000, height: 2000 },
     repo: 'https://github.com/PeterT1665/Workout-Rag-Advisor',
     shot: shot('coach', 'Sport Personal Coach home screen: the week planned around one game, with today\'s recovery session'),
     status: { kind: 'static' },
@@ -109,6 +109,7 @@ export const featured: Featured[] = [
     url: 'https://ndai-try.vercel.app/preview/',
     repo: 'https://github.com/massive-attack-team/ndAI',
     shot: shot('ndai-ext', 'ndAI in the browser: a prompt about a strategic plan blocked before it reaches the chatbot, tier 3 paraphrase match', 921),
+    more: [shot('ndai-review', 'ndAI reviewing a file upload: restricted passages struck out, with a sanitised version to approve or keep', 897)],
     status: { kind: 'server', ping: 'https://ndai-detector-onnx.onrender.com/health' },
   },
 ]
@@ -192,8 +193,8 @@ export const cheer = {
     },
   ],
   photos: [
-    pic('cheer-1', 'A flyer on top of a two-man base, Legacy team', 'Stunt day, Southern Cross Cheer', 1170, 1560),
-    pic('cheer-4', 'Peter basing a flyer outdoors in Melbourne', 'Basing in the city', 1600, 2133),
+    pic('cheer-1', 'A flyer on top of a two-man base, Legacy team', 'Family showcase', 1170, 1560),
+    pic('cheer-4', 'Peter basing a flyer outdoors in Melbourne', 'Stunt with the gold', 1600, 2133),
     pic('cheer-2', 'Legacy team with the 2025 Grand Champion banner', '2025 Grand Champion, Worlds bid', 1600, 1200),
   ],
 }
