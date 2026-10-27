@@ -1,0 +1,18 @@
+node_modules
+dist
+.DS_Store
+*.tsbuildinfo
+.vercel
+# Design-skill working files (screenshots, direction sheet)
+.taste-skill/
+# Full-size source pictures; npm run images turns them into public/img/*.webp
+site-shots/
+photos/
+# Private handoff notes for Claude sessions: planning, open questions, account notes
+CLAUDE.md
+PROJECTS.md
+QUESTIONS.md
+# Originals of found pictures (credited in src/content.ts) and one-off screenshots
+assets/
+*-live.jpg
+*-live.png

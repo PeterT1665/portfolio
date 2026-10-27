@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peter Trieu · Software engineer in Melbourne</title>
+    <meta name="description" content="Peter Trieu, software engineer in Melbourne graduating December 2026. Every project on this site is live: BumpIn, Voyager, Fold-A2 and ndAI." />
+    <meta property="og:title" content="Peter Trieu · Software engineer in Melbourne" />
+    <meta property="og:description" content="Every project here is running right now. Pick one and use it." />
+    <meta property="og:image" content="/img/bumpin-1600.webp" />
+    <meta name="theme-color" content="#dbe7f6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b1a33" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      // Set the theme before first paint so there is no flash of the wrong colours.
+      try {
+        var t = localStorage.getItem('theme')
+        if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.dataset.theme = t
+      } catch (e) {
+        document.documentElement.dataset.theme = 'light'
+      }
+      document.documentElement.classList.add('js')
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
