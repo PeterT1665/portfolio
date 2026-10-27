@@ -142,13 +142,33 @@ export const about = {
 
 export const cheer = {
   heading: 'Off the keyboard',
-  // Peter, 27 Oct: 6 medals across state, national and one international competition (held in
-  // Australia), and his team won a bid to Worlds. Confirm all six are gold before launch.
-  body: "I'm a competitive cheerleader. Six gold medals across state, national and international championships, and a bid to Worlds, the biggest cheer competition there is. Same lesson as hackathons: you trust the people holding you up.",
+  // Peter's list, 27 Oct. It adds up to 7 golds (2 national, 3 state, Winterfest, Aussie Gold
+  // International); he first said 6. Confirm the count before launch.
+  body: "I'm a competitive cheerleader on the Legacy team at Southern Cross Cheer Club in Melbourne, competing at Level 7, the highest level. Same lesson as hackathons: you trust the people holding you up.",
   medals: [
-    { figure: '6', label: 'gold medals' },
-    { figure: '1', label: 'of them at an international championship' },
-    { figure: 'Worlds', label: 'bid won with my team' },
+    { figure: '7', label: 'gold medals in Melbourne' },
+    { figure: '2', label: 'national titles, 2024 and 2025' },
+    { figure: 'Worlds', label: 'partial paid bid, won as 2025 Grand Champion' },
+  ],
+  record: [
+    {
+      place: 'In Melbourne',
+      rows: [
+        { year: '2025', event: 'Grand Champion', result: 'Partial paid bid to Worlds' },
+        { year: '2025, 2024', event: 'National Champions, International Open Large Co-ed Level 7', result: 'Gold' },
+        { year: '2025, 2024, 2023', event: 'State Champions', result: 'Gold' },
+        { year: '2025', event: 'Winterfest', result: 'Gold' },
+        { year: '2025', event: 'Aussie Gold International', result: 'Gold' },
+      ],
+    },
+    {
+      place: 'In Hanoi',
+      rows: [
+        { year: '2022', event: 'Doan Thi Diem Cheerleading Championship', result: 'First place, as a coach' },
+        { year: '2022, 2020', event: 'High school talent competition', result: 'First place, as an athlete' },
+        { year: '2021', event: 'High school talent competition', result: 'Second place, as an athlete' },
+      ],
+    },
   ],
   photos: [
     // Add src: '/img/cheer-1' (and an alt) once photos/cheer-1.jpg exists and `npm run images` has run.

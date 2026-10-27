@@ -20,6 +20,22 @@ export function Cheer() {
           ))}
         </dl>
       </div>
+      <div className="record" data-rise-group>
+        {cheer.record.map((g) => (
+          <div key={g.place} className="record__group">
+            <h3 data-rise>{g.place}</h3>
+            <ul>
+              {g.rows.map((r) => (
+                <li key={r.year + r.event} className="record__row" data-rise>
+                  <span className="record__year">{r.year}</span>
+                  <span className="record__event">{r.event}</span>
+                  <span className="record__result">{r.result}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
       {cheer.photos.some((p) => p.src) && (
         <div className="cheer__photos" data-rise-group>
           {cheer.photos.map((p) => (
