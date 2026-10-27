@@ -119,8 +119,11 @@ export function Work() {
         <ol className="work__names" ref={list}>
           {featured.map((f, i) => (
             <li key={f.name} data-index={i} className={i === current ? 'is-current' : undefined}>
-              <a className="work__name" href={f.url} target="_blank" rel="noreferrer">
+              <a className={`work__name${f.name.length > 14 ? ' work__name--long' : ''}`} href={f.url} target="_blank" rel="noreferrer">
                 {f.name}
+                <span className="work__arrow" aria-hidden="true">
+                  ↗
+                </span>
               </a>
               <div className="work__row">
                 <p>{f.what}</p>

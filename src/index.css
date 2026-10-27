@@ -407,15 +407,14 @@
   }
 }
 .work__stage {
+  --fw: min(46vw, 104svh);
+  --fh: calc(var(--fw) * 0.625);
   position: relative;
 }
 .work__hold {
-  --fw: min(46vw, 104svh);
-  --fh: calc(var(--fw) * 0.625);
   position: sticky;
   top: calc(var(--bar) + 4svh);
   height: var(--fh);
-  margin-bottom: calc(var(--fh) * -1);
   display: grid;
   grid-template-columns: 1fr var(--fw) 1fr;
   align-items: start;
@@ -489,8 +488,12 @@
 .work__names {
   position: relative;
   z-index: 2;
+  margin-top: calc(var(--fh) * -1); /* the names rise over the held frame, which stays inside the stage */
   padding-block: 62svh 10svh;
   pointer-events: none;
+}
+.work__names li:last-child {
+  min-height: 0;
 }
 .work__names li {
   min-height: 38svh;
@@ -519,8 +522,39 @@
     opacity: 0;
   }
 }
+.work__name.work__name--long {
+  font-size: clamp(3rem, 9vw, 9rem);
+}
+@media (max-width: 768px) {
+  .work__name.work__name--long {
+    font-size: 12vw;
+  }
+}
+.work__arrow {
+  display: inline-block;
+  margin-left: 0.06em;
+  font-size: 0.38em;
+  vertical-align: top;
+  color: var(--accent);
+  transition: transform 400ms var(--ease-out);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .work__names li.is-current .work__arrow {
+    animation: arrow-nudge 1.6s var(--ease-out) infinite;
+  }
+}
+@keyframes arrow-nudge {
+  0%, 60%, 100% { transform: translate(0, 0); }
+  80% { transform: translate(0.18em, -0.18em); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .work__name:hover .work__arrow {
+    transform: translate(0.2em, -0.2em);
+    animation: none;
+  }
+}
 .work__all {
-  padding: 0 var(--margin);
+  padding: 48px var(--margin) 0;
 }
 @media (hover: hover) and (pointer: fine) {
   .work__name:hover {
@@ -845,7 +879,7 @@ a.library__row .library__note::after {
   max-width: 26ch;
 }
 .contact__email {
-  margin-block: 22svh 12svh;
+  margin-block: 2svh 6svh;
   font-size: var(--step-hero);
   font-weight: 800;
   letter-spacing: -0.05em;
@@ -883,6 +917,7 @@ a.library__row .library__note::after {
 .footer__photo {
   aspect-ratio: auto;
   height: 100%;
+  object-position: 30% 75%;
 }
 .footer__side {
   display: flex;
@@ -986,6 +1021,7 @@ a.library__row .library__note::after {
     display: none;
   }
   .work__names {
+    margin-top: 0;
     padding: 0 var(--margin);
     pointer-events: auto;
     display: flex;
@@ -1121,7 +1157,17 @@ a.library__row .library__note::after {
     margin-top: 24px;
   }
   .cheer__photos {
-    grid-template-columns: 1fr;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 72%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--margin);
+    margin-inline: calc(var(--margin) * -1);
+    padding-inline: var(--margin);
+  }
+  .cheer__photos > * {
+    scroll-snap-align: start;
   }
   .record {
     grid-template-columns: 1fr;

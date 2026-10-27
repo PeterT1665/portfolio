@@ -40,7 +40,7 @@ export function Cheer() {
         <div className="cheer__photos" data-rise-group>
           {cheer.photos.map((p) => (
             <div key={p.label} data-rise>
-              <Photo className="cheer__photo" label={p.label} note={p.note} src={p.src} alt={p.alt} />
+              <Photo className="cheer__photo" loading="eager" label={p.label} note={p.note} src={p.src} alt={p.alt} />
             </div>
           ))}
         </div>

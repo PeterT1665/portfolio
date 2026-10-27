@@ -15,6 +15,9 @@ export function Contact() {
       <div className="contact__foot">
         <p>{person.city}</p>
         <p className="contact__links">
+          <a className="link" href={person.resume} target="_blank" rel="noreferrer">
+            Résumé
+          </a>
           <a className="link" href={person.linkedin} target="_blank" rel="noreferrer">
             LinkedIn
           </a>

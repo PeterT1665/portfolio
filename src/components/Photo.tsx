@@ -8,6 +8,7 @@ export function Photo({
   className = '',
   width = 1200,
   height = 1500,
+  loading = 'lazy',
 }: {
   src?: string
   alt?: string
@@ -16,6 +17,7 @@ export function Photo({
   className?: string
   width?: number
   height?: number
+  loading?: 'lazy' | 'eager'
 }) {
   if (src)
     return (
@@ -27,7 +29,7 @@ export function Photo({
         alt={alt ?? label}
         width={width}
         height={height}
-        loading="lazy"
+        loading={loading}
         decoding="async"
       />
     )
