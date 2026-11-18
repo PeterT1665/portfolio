@@ -75,13 +75,13 @@ export const featured: Featured[] = [
     status: { kind: 'server', ping: 'https://bumpin-demo.onrender.com/api/health' },
   },
   {
-    name: 'Sport Personal Coach',
-    what: 'Plans my football week around game days and calls random reaction cues in drills',
+    name: 'Soccer Personal Coach',
+    what: 'Plans my soccer week around game days and calls LEFT/RIGHT reaction cues in drills',
     result: 'Solo build, live demo with sample data',
-    url: 'https://sport-coach-demo.duckdns.org',
-    phone: { src: '/img/coach-phone', alt: "Sport Personal Coach on a phone: today's recovery session over a night view of a stadium", width: 1000, height: 2000 },
+    url: 'https://football-personal-coach.ducphu1665.workers.dev/?invite=1',
+    phone: { src: '/img/coach-phone', alt: "Soccer Personal Coach on a phone: today's game-day recovery session with sample data", width: 1000, height: 2000 },
     repo: 'https://github.com/PeterT1665/Workout-Rag-Advisor',
-    shot: shot('coach', 'Sport Personal Coach home screen: the week planned around one game, with today\'s recovery session'),
+    shot: shot('coach', 'Soccer Personal Coach on a laptop: the sign-up screen, the sample player\'s game day, and a QR code to open it on a phone'),
     status: { kind: 'static' },
   },
   {
@@ -121,7 +121,7 @@ export type LibraryRow = { name: string; what: string; stack: string; note: stri
 
 export const library: LibraryRow[] = [
   { name: 'BumpIn', what: 'Festival rider and vendor CRM', stack: 'Python, FastAPI, React', note: '3rd overall, Best Track', url: 'https://bumpin-demo.onrender.com' },
-  { name: 'Sport Personal Coach', what: 'Football training plan built around game days', stack: 'React, TypeScript, FastAPI, PWA', note: 'Solo build, live demo', url: 'https://sport-coach-demo.duckdns.org' },
+  { name: 'Soccer Personal Coach', what: 'Soccer training plan built around game days', stack: 'React, TypeScript, FastAPI, PWA', note: 'Solo build, live demo', url: 'https://football-personal-coach.ducphu1665.workers.dev/?invite=1' },
   { name: 'Fold-A2', what: 'Poker bot and poker room', stack: 'Python', note: '10th of 41 teams', url: 'https://fold-a2-pokerroom.onrender.com' },
   { name: 'Voyager', what: 'Reed-Solomon image recovery', stack: 'JavaScript, Vite', note: 'Best Product, Codebrew', url: 'https://voyager-sepia-zeta.vercel.app' },
   { name: 'ndAI', what: 'Leak detector for AI prompts', stack: 'Python, ONNX, Chrome extension', note: '24-hour build', url: 'https://ndai-try.vercel.app/preview/' },
